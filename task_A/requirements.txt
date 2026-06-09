@@ -1,0 +1,3 @@
+-r ../task_1_solution_domi/requirements.txt
+joblib
+lightgbm
