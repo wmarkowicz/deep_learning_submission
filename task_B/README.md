@@ -11,6 +11,20 @@ Task B is about redesigning one DNA sequence with naturally low regulatory activ
 
 The assignment asks us to defend the design using model interpretation methods. This solution uses in-silico mutagenesis and consensus beam search across the three group models: `domi`, `wika`, and `ola`.
 
+## Why This Approach
+
+The final strategy is a weighted, ISM-prioritized beam search. It was chosen because Task B is a difficult sequence-design problem: the search space is enormous, there is no explicit mutation budget, and optimizing against a single model can easily produce artificial sequences that exploit one predictor rather than genuinely improving regulatory activity.
+
+ISM is used first because it gives an interpretable and model-evaluated estimate of which positions are most useful to edit. Unlike gradient attribution, which is a local approximation and was available mainly through the Domi model, ISM directly tests single-base substitutions and records the predicted effect for all selected models. This makes the candidate-position prior more reliable and easier to defend in the report: the beam search is not exploring arbitrary mutations, but positions that already showed positive single-mutation evidence.
+
+Beam search was selected instead of a purely greedy search because beneficial multi-mutation designs may require keeping several competing partial sequences alive. A greedy algorithm can commit too early to a mutation that looks best at one step but blocks a stronger combination later. Beam search keeps the top candidates at each step, which gives a better balance between exploration and tractability than exhaustive search. It also scales well for this task because the beam width and ISM top-position cutoff directly control the number of evaluated candidates, so the method can be expanded or restricted depending on the available compute budget.
+
+The final objective is `weighted_mean_floor`. The weighted mean lets the optimizer give more influence to the strongest individual model (`domi=0.60`) while still using `wika` and `ola` as regularizers. The floor term prevents the search from sacrificing one model to improve another: candidates that fail to achieve the required per-model improvement are heavily penalized. This was important because the goal is not only to maximize the average prediction, but to produce a sequence that all three independently trained models consider improved.
+
+Several parameter combinations were tested before selecting the final run, including different objectives (`min`, `mean`, `mean_floor`, and weighted variants), different model weights, beam widths, patience values, ISM top-position cutoffs, and mutation caps. The selected configuration gave the best practical trade-off in these experiments: it achieved a high final mean prediction while keeping improvements positive across all three models and avoiding obvious plausibility problems. For this reason, it was treated as the most reliable final approach rather than simply the most aggressive optimizer setting.
+
+The practical cap of 80 mutations and the final plausibility checks were added to keep the optimized sequence biologically reasonable. Since the assignment does not impose a strict Task B mutation budget, this cap acts as a safeguard against runaway optimization and simple repeat-based model exploitation.
+
 ## Files
 
 ```text
@@ -30,8 +44,6 @@ task_B/
 - `multi_model_beam_search.py` runs consensus beam search with unweighted objectives: `min`, `mean`, or `mean_floor`.
 - `weighted_multi_model_beam_search.py` is the main final optimizer. It supports model weights, so the strongest model can get more influence while the others still regularize the design.
 - `plausibility_check.py` checks whether the optimized sequence looks biologically plausible: GC%, homopolymers, tandem repeats, entropy, 3-mer usage, and simple TF motif changes.
-
-The scripts do not mutate the first and last 15 nt (`CORE_START=15`, `CORE_END=215`) because these are shared adapter flanks.
 
 ## Environment
 
