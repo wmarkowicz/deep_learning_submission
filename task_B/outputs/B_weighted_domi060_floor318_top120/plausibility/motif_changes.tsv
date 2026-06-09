@@ -1,0 +1,13 @@
+id	motif	orig	new	delta
+seq_4_no_active	TATA_box	0	0	0
+seq_4_no_active	Initiator	6	1	-5
+seq_4_no_active	GC_box_Sp1	0	0	0
+seq_4_no_active	CAAT_box	2	2	0
+seq_4_no_active	E_box_bHLH	0	0	0
+seq_4_no_active	CRE	0	0	0
+seq_4_no_active	AP1	0	2	2
+seq_4_no_active	NFkB	0	0	0
+seq_4_no_active	ETS	0	0	0
+seq_4_no_active	GATA	1	1	0
+seq_4_no_active	Forkhead	0	0	0
+seq_4_no_active	Octamer	0	0	0

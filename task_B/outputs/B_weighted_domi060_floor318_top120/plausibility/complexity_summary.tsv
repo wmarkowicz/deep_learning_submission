@@ -1,0 +1,2 @@
+id	predicted_rna_dna_ratio	orig_gc_pct	new_gc_pct	orig_longest_homopolymer	new_longest_homopolymer	orig_longest_tandem_repeat	new_longest_tandem_repeat	orig_entropy_mono_bits	new_entropy_mono_bits	orig_entropy_di_bits	new_entropy_di_bits	orig_kmer3_usage	new_kmer3_usage	red_flags
+seq_4_no_active	2.838877721633642	42.5	41.0	4	7	8	7	1.969756862560874	1.9543618320535885	3.875976770630457	3.851196306683441	0.90625	0.859375	
