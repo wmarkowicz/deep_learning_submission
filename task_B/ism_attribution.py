@@ -102,11 +102,11 @@ def main():
     )
     parser.add_argument(
         "--gradient-dir", type=Path,
-        default=mb.ROOT / "task_2_solution" / "gradient_attribution" / "outputs",
+        default=mb.TASK2_DIR / "gradient_attribution" / "outputs",
     )
     parser.add_argument(
         "--output-dir", type=Path,
-        default=mb.ROOT / "task_2_solution" / "ism_scanning" / "outputs",
+        default=mb.TASK2_DIR / "ism_scanning" / "outputs",
     )
     args = parser.parse_args()
 

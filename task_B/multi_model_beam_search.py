@@ -43,7 +43,7 @@ def _looks_like_project_root(path):
     return (
         (path / "task_materials").exists()
         and (path / "task_1_solution_domi").exists()
-        and (path / "task_2_solution").exists()
+        and ((path / "task_2_solution").exists() or (path / "task_B").exists())
     )
 
 
@@ -57,7 +57,7 @@ def _resolve_project_root():
         candidates.append(Path(env_root).expanduser())
 
     for parent in script_path.parents:
-        candidates.extend([parent, parent / "dls_project"])
+        candidates.extend([parent, parent / "dls_project", parent / "deep_learning_submission"])
 
     for candidate in candidates:
         if _looks_like_project_root(candidate):
@@ -68,6 +68,9 @@ def _resolve_project_root():
 
 
 ROOT = _resolve_project_root()
+TASK2_DIR = ROOT / "task_2_solution"
+if not TASK2_DIR.exists():
+    TASK2_DIR = ROOT / "task_B"
 DOMI_DIR = ROOT / "task_1_solution_domi"
 DOMI_MODEL_DIR = DOMI_DIR / "models" / "DeepSTARRRDSEB"
 WIKA_DIR = ROOT / "task_1_solution_wika"
@@ -554,12 +557,12 @@ def main():
     )
     parser.add_argument(
         "--attribution-dir", type=Path,
-        default=ROOT / "task_2_solution" / "gradient_attribution" / "outputs",
+        default=TASK2_DIR / "gradient_attribution" / "outputs",
         help="Gradient-attribution CSV directory (used when --prior gradient).",
     )
     parser.add_argument(
         "--ism-dir", type=Path,
-        default=ROOT / "task_2_solution" / "ism_scanning" / "outputs",
+        default=TASK2_DIR / "ism_scanning" / "outputs",
         help="ISM CSV directory (used when --prior ism).",
     )
     parser.add_argument("--output-dir", type=Path, default=None)
@@ -581,7 +584,7 @@ def main():
 
     tag = "_".join(args.models) + f"_{args.objective}_{args.prior}"
     output_dir = args.output_dir or (
-        ROOT / "task_2_solution" / "sequence_optimization" / "outputs" / tag
+        TASK2_DIR / "sequence_optimization" / "outputs" / tag
     )
 
     results = []

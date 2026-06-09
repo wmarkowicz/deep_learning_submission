@@ -242,11 +242,11 @@ def main():
     )
     parser.add_argument(
         "--attribution-dir", type=Path,
-        default=mb.ROOT / "task_2_solution" / "gradient_attribution" / "outputs",
+        default=mb.TASK2_DIR / "gradient_attribution" / "outputs",
     )
     parser.add_argument(
         "--ism-dir", type=Path,
-        default=mb.ROOT / "task_2_solution" / "ism_scanning" / "outputs",
+        default=mb.TASK2_DIR / "ism_scanning" / "outputs",
     )
     parser.add_argument("--output-dir", type=Path, default=None)
     args = parser.parse_args()
@@ -271,7 +271,7 @@ def main():
 
     tag = "weighted_" + "_".join(args.models) + f"_{args.objective}_{args.prior}"
     output_dir = args.output_dir or (
-        mb.ROOT / "task_2_solution" / "sequence_optimization" / "outputs" / tag
+        mb.TASK2_DIR / "sequence_optimization" / "outputs" / tag
     )
 
     results = []
