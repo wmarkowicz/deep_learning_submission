@@ -1,0 +1,9 @@
+{
+  "model_type": "ReverseComplementCNN",
+  "classification_accuracy": 0.766835168803033,
+  "classification_threshold": 0.29000000000000004,
+  "f1": 0.6564376250833889,
+  "auc": 0.824587186633815,
+  "mse": 0.4917826969700659,
+  "uses_reverse_complement_tta": true
+}

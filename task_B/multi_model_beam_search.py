@@ -27,6 +27,7 @@ import argparse
 import csv
 import importlib.util
 import json
+import os
 import sys
 from pathlib import Path
 
@@ -38,7 +39,35 @@ from torch.utils.data import DataLoader, Dataset
 # --------------------------------------------------------------------------- #
 # Paths
 # --------------------------------------------------------------------------- #
-ROOT = Path(__file__).resolve().parents[2]
+def _looks_like_project_root(path):
+    return (
+        (path / "task_materials").exists()
+        and (path / "task_1_solution_domi").exists()
+        and (path / "task_2_solution").exists()
+    )
+
+
+def _resolve_project_root():
+    """Find the original project root even when these scripts are copied out."""
+    script_path = Path(__file__).resolve()
+    candidates = []
+
+    env_root = os.environ.get("DLS_PROJECT_ROOT")
+    if env_root:
+        candidates.append(Path(env_root).expanduser())
+
+    for parent in script_path.parents:
+        candidates.extend([parent, parent / "dls_project"])
+
+    for candidate in candidates:
+        if _looks_like_project_root(candidate):
+            return candidate
+
+    # Preserve the original layout assumption so failures point to the old paths.
+    return script_path.parents[2]
+
+
+ROOT = _resolve_project_root()
 DOMI_DIR = ROOT / "task_1_solution_domi"
 DOMI_MODEL_DIR = DOMI_DIR / "models" / "DeepSTARRRDSEB"
 WIKA_DIR = ROOT / "task_1_solution_wika"

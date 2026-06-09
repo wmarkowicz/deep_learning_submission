@@ -1,0 +1,30 @@
+{
+  "use_full_sequence": true,
+  "feature_config": {
+    "name": "count_3_7_min2",
+    "ngram_range": [
+      3,
+      7
+    ],
+    "binary": false,
+    "min_df": 2
+  },
+  "classification_model": "cnn_lgbm_ridge_ensemble",
+  "regression_model": "lightgbm_regressor",
+  "w_lgbm_clf": 0.2,
+  "w_logreg": 0.0,
+  "w_lgbm_reg": 0.0,
+  "w_ridge": 0.3,
+  "classification_threshold": 0.41,
+  "validation_accuracy": 0.7813684780646326,
+  "validation_f1": 0.6254253015774822,
+  "validation_auc": 0.8386383376798948,
+  "validation_lgbm_reg_mse": 0.3954881788331129,
+  "validation_ridge_mse": 0.48057844007433226,
+  "ridge_pred_mean": -0.21797390723574167,
+  "ridge_pred_std": 0.6181605031272162,
+  "lgbm_reg_pred_mean": -0.2254170497334541,
+  "lgbm_reg_pred_std": 0.431057798478106,
+  "uses_cnn": true,
+  "w_cnn": 0.5
+}

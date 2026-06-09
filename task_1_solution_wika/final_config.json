@@ -1,0 +1,41 @@
+{
+  "seq_len": 230,
+  "adapter_5": 0,
+  "adapter_3": 0,
+  "use_scaled_reg": true,
+  "reg_mean": -0.222344309091568,
+  "reg_std": 0.7842614054679871,
+  "reg_loss_weight": 1.0,
+  "use_tta": true,
+  "lgb_use_reverse_complement": true,
+  "lgb_feature_mode": "vstack_rc_average",
+  "use_handcrafted_dna_features": true,
+  "kmer_features": [
+    2,
+    3,
+    4
+  ],
+  "classification": {
+    "source": "main_cnn_lgb",
+    "threshold": 0.6400000000000003,
+    "main_cnn_lgb_alpha": 0.22
+  },
+  "regression": {
+    "cnn_lgb_alpha": 0.17
+  },
+  "model_paths": {
+    "cnn": "best_model_deep.pth",
+    "lgb_classifier": "lgb_classifier.pkl",
+    "lgb_regressor": "lgb_regressor.pkl"
+  },
+  "validation_metrics": {
+    "final_mix": {
+      "accuracy": 0.7745546461242176,
+      "f1": 0.6282992657273269,
+      "auc": 0.8299775526693656,
+      "mse": 0.3653023406978198,
+      "mae": 0.4566906105707873,
+      "threshold": 0.6400000000000003
+    }
+  }
+}
