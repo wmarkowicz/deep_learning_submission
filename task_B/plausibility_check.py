@@ -15,7 +15,7 @@ This script contains two families of checks:
 
 Example
 -------
-    python task_2_solution/sequence_optimization/plausibility_check.py \
+    python plausibility_check.py \
         --run domi_wika_ola_min_ism
 """
 
@@ -196,7 +196,7 @@ def main():
     parser.add_argument("--reference-sample", type=int, default=3000)
     args = parser.parse_args()
 
-    run_dir = ROOT / "task_2_solution" / "outputs" / args.run
+    run_dir = ROOT / "task_B" / "outputs" / args.run
     sub, originals = load_designs(run_dir, args.fasta)
 
     ref_mean = ref_lo = ref_hi = None
